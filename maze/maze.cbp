@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="C:/Users/manoamano/Desktop/maze/maze/" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -29,11 +30,17 @@
 			</Target>
 		</Build>
 		<Compiler>
-			<Add option="-Wall" />
+			<Add option="-Wall -I ." />
+			<Add directory="../maze" />
 		</Compiler>
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="point.h" />
+		<Unit filename="stack.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="stack.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />

@@ -1,9 +1,11 @@
 #ifdef POINT
 #define POINT
 
-typedef struct {
+struct point{
     int x;
     int y;
-} Point;
+};
+
+typedef struct point Point;
 
 #endif // POINT
