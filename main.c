@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h> //Para idioma pt-br
-
+#include "point.h"
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
@@ -32,6 +32,8 @@ int main() {
             printf("\n");
         }
     }
+
+    free(maze);
     fclose(arquivo);
 
     system("Pause");
