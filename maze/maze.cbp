@@ -12,7 +12,7 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-g" />
+					<Add option="-g -I ." />
 					<Add directory="C:/Users/manoamano/Desktop/maze/maze/" />
 				</Compiler>
 			</Target>
@@ -22,10 +22,10 @@
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
-					<Add option="-O2" />
+					<Add option="-O2 -I ." />
 				</Compiler>
 				<Linker>
-					<Add option="-s" />
+					<Add option="-s -I ." />
 				</Linker>
 			</Target>
 		</Build>
