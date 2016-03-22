@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h> //Para idioma pt-br
-#include "point.h"
+#include <point.h>
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
     FILE *arquivo;
     int lin, col;
     char **maze;
-
+    Point p;
     int i, j;
     arquivo = fopen("labirinto.txt", "r");
     if(arquivo == NULL)
