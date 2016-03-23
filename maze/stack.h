@@ -1,4 +1,5 @@
 #ifdef STACK
+#include <stdio.h>
 #define STACK
 
 #define QTD 100

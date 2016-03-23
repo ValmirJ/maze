@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1458758000 source:c:\users\manoamano\desktop\maze\maze\main.c
+	<stdio.h>
+	<stdlib.h>
+	<locale.h>
+
+1458666712 c:\users\manoamano\desktop\maze\maze\point.h
+	<stdio.h>
+
+1458666827 source:c:\users\manoamano\desktop\maze\maze\stack.c
+	"stack.h"
+	"point.h"
+	<stdio.h>
+
+1458666700 c:\users\manoamano\desktop\maze\maze\stack.h
+	<stdio.h>
+

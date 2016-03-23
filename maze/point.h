@@ -1,5 +1,6 @@
 #ifdef POINT
 #define POINT
+#include <stdio.h>
 
 struct point{
     int x;
