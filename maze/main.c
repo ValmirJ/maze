@@ -16,7 +16,7 @@ struct pilha{
 };
 typedef struct pilha Pilha;
 
-Point pop(Pilha p1);
+Point pop(Pilha *p1);
 int push(Pilha *p1, Point w);
 Point searchEntry(int l, int c, char m[][c]);
 
@@ -27,13 +27,14 @@ int main() {
     char **maze;
     Point pos;
     Pilha ways;
+    ways.topo = 0;
     int i, j;
     arquivo = fopen("labirinto.txt", "r");
     if(arquivo == NULL)
         printf("Erro ao carregar o labirinto, arquivo não pode ser aberto.");
     else {
         fscanf(arquivo, "%i %i", &lin, &col);
-        printf("%i", col);
+        printf("Labirinto %i x %i\n\n", lin, col);
 
         char (*maze)[col] = (char(*)[col]) malloc(sizeof(char)*lin*col);
 
@@ -49,6 +50,8 @@ int main() {
         else {
             push(&ways, pos);
         }
+        pos = pop(&ways);
+        printf("%i x %i", pos.x, pos.y);
     }
 
     free(maze);
@@ -59,16 +62,17 @@ int main() {
 }
 
 //Functions
-Point pop(Pilha p1) {
+Point pop(Pilha *p1) {
     Point r;
-    if(p1.topo == 0) {
+
+    if(p1->topo == 0) {
         r.x = -1;
         r.y = -1;
     }
     else {
-        r.x = p1.p[p1.topo].x;
-        r.y = p1.p[p1.topo].y;
-        p1.topo--;
+        p1->topo--;
+        r.x = p1->p[p1->topo].x;
+        r.y = p1->p[p1->topo].y;
     }
     return r;
 }
