@@ -16,9 +16,19 @@ struct pilha{
 };
 typedef struct pilha Pilha;
 
+struct boolPos {
+    int left;
+    int bottom;
+    int right;
+    int top;
+};
+typedef struct boolPos BoolPos;
+
+
 Point pop(Pilha *p1);
 int push(Pilha *p1, Point w);
 Point searchEntry(int l, int c, char m[][c]);
+void checkPositions(BoolPos *s, Point c, int lin, int col, char maze[][col]);
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
@@ -28,6 +38,7 @@ int main() {
     Point pos;
     Pilha ways;
     ways.topo = 0;
+    BoolPos currentSituation;
     int i, j;
     arquivo = fopen("labirinto.txt", "r");
     if(arquivo == NULL)
@@ -103,5 +114,15 @@ Point searchEntry(int l, int c, char m[][c]) {
         printf("\n");
     }
     return e;
+}
+
+void checkPositions(BoolPos *s, Point c, int lin, int col, char maze[][col]){
+    s->left = 0;
+    s->bottom = 0;
+    s->right = 0;
+    s ->top = 0;
+    if(c.y + 1 <= lin && maze[c.x][c.y+1] == " ")
+        //empilha e marca um 'V' de visitado
+        ;
 }
 
