@@ -28,7 +28,7 @@ typedef struct boolPos BoolPos;
 Point pop(Pilha *p1);
 int push(Pilha *p1, Point w);
 Point searchEntry(int l, int c, char m[][c]);
-void checkPositions(BoolPos *s, Point c, int lin, int col, char maze[][col]);
+void checkPositions(BoolPos *s, Point *c, int lin, int col, char maze[][col]);
 
 int main() {
     setlocale(LC_ALL, "Portuguese");
@@ -61,8 +61,23 @@ int main() {
         else {
             push(&ways, pos);
         }
-        pos = pop(&ways);
-        printf("%i x %i", pos.x, pos.y);
+        while(maze[pos.x][pos.y] != 's') {
+            checkPositions(&currentSituation, &pos, lin, col, maze);
+            if(maze[pos.x][pos.y] == 'b')
+                maze[pos.x][pos.y] = 'v'; //Move
+            push(&ways, pos);
+        }
+        if(maze[pos.x][pos.y] == 's') {
+            printf("\n\nLabirinto descoberto com sucesso!\nO caminho é:\n\n");
+            while(ways.topo > 0) {
+                pos = pop(&ways);
+                printf("%iº passo: %i x %i\n", ways.topo +1, pos.x, pos.y);
+            }
+            printf("\n\n");
+        }
+        else {
+            printf("Não foi possível descobrir o caminho deste labirinto\n\n");
+        }
     }
 
     free(maze);
@@ -116,13 +131,31 @@ Point searchEntry(int l, int c, char m[][c]) {
     return e;
 }
 
-void checkPositions(BoolPos *s, Point c, int lin, int col, char maze[][col]){
+
+void checkPositions(BoolPos *s, Point *c, int lin, int col, char maze[][col]){
     s->left = 0;
     s->bottom = 0;
     s->right = 0;
     s ->top = 0;
-    if(c.y + 1 <= lin && maze[c.x][c.y+1] == " ")
-        //empilha e marca um 'V' de visitado
-        ;
+    if((c->y + 1 <= lin) && (maze[c->x][c->y+1] == 'b' || maze[c->x][c->y+1] == 's' )) {
+        s->left = 1;
+        c->y += 1;
+        return;
+    }
+    if((c->x + 1 <= col) && (maze[c->x +1][c->y] == 'b'|| maze[c->x+1][c->y] == 's')) {
+        s->bottom = 1;
+        c->x += 1;
+        return;
+    }
+    if((c->y - 1 >= 0) && (maze[c->x][c->y-1] == 'b' || maze[c->x][c->y-1] == 's')) {
+        s->right = 1;
+        c->y -= 1;
+        return;
+    }
+    if((c->x -1 >= 0) && (maze[c->x-1][c->y] == 'b') || maze[c->x-1][c->y] == 's') {
+        s->top = 1;
+        c->x -= 1;
+    }
 }
+
 
