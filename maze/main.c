@@ -65,7 +65,12 @@ int main() {
             checkPositions(&currentSituation, &pos, lin, col, maze);
             if(maze[pos.x][pos.y] == 'b')
                 maze[pos.x][pos.y] = 'v'; //Move
-            push(&ways, pos);
+            printf("\nTentativa: %i x %i", pos.x, pos.y);
+            if(currentSituation.left == 0 && currentSituation.bottom == 0 && currentSituation.right == 0 && currentSituation.top == 0) {
+                pos = pop(&ways);
+            }
+            else
+                push(&ways, pos);
         }
         if(maze[pos.x][pos.y] == 's') {
             printf("\n\nLabirinto descoberto com sucesso!\nO caminho é:\n\n");

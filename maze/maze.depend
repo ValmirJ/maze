@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1458821384 source:c:\users\manoamano\desktop\maze\maze\main.c
+1458825095 source:c:\users\manoamano\desktop\maze\maze\main.c
 	<stdio.h>
 	<stdlib.h>
 	<locale.h>
