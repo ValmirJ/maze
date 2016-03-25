@@ -178,7 +178,7 @@ bool searchEntry(int l, int c, char m[][c], Point *point) {
         printf("\n");
     }
 
-    return FALSE;
+    return found;
 }
 
 void checkPositions(BoolPos *s, Point *c, int lin, int col, char maze[][col]){
