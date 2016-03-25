@@ -60,7 +60,8 @@ int main() {
     fscanf(arquivo, "%i %i", &lin, &col);
     printf("Labirinto %i x %i\n\n", lin, col);
 
-    char (*maze)[col] = (char(*)[col]) malloc(sizeof(char)*lin*col);
+    // Alocate +1 to acomodate the \0 at end of final line
+    char (*maze)[col] = (char(*)[col]) malloc((sizeof(char)*lin*col) + 1);
 
     for(i=0; i<lin; i++) {
         fscanf(arquivo, "%s", maze[i]);
