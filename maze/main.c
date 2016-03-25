@@ -67,14 +67,14 @@ int main() {
         fscanf(arquivo, "%s", maze[i]);
     }
 
-    if (searchEntry(lin, col, maze, &pos) == FALSE) {
+    if (!searchEntry(lin, col, maze, &pos)) {
         printf("\nNão há entrada para esse labirinto, impossível continuar");
         return 0;
     }
 
     ways = createStack(lin * col);
     push(ways, pos);
-
+    maze[pos.x][pos.y] = 'v';
     while(maze[pos.x][pos.y] != MAZE_OUT) {
         checkPositions(&currentSituation, &pos, lin, col, maze);
 
@@ -85,9 +85,16 @@ int main() {
         printf("\nTentativa: %i x %i", pos.x, pos.y);
 
         if(currentSituation.left == 0 && currentSituation.bottom == 0 && currentSituation.right == 0 && currentSituation.top == 0) {
-            if (pop(ways, &pos) == FALSE) {
-                printf("Entrada encontrada não leva para uma saída!\n");
-                return 0;
+            if (!pop(ways, &pos)) {
+
+                if(searchEntry(lin, col, maze, &pos)) {
+                    printf("\nEntrada encontrada não leva para uma saída!\nTentando nova entrada\n");
+                    push(ways, pos);
+                }
+                else {
+                    printf("\n\nNão foi possível encontrar o caminhos a(s) entrada(s) encontrada(s) não levam à uma saída!\n");
+                    break;
+                }
             }
         } else {
             push(ways, pos);
@@ -148,6 +155,7 @@ bool searchEntry(int l, int c, char m[][c], Point *point) {
     bool found = FALSE;
     char current;
 
+    printf("\nLabirinto\n\n");
     for(i=0; i<l; i++) {
         for(j=0; j<c; j++) {
             current = m[i][j];
