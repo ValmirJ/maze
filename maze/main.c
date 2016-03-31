@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h> //Para idioma pt-br
+#include <ctype.h>
 
 #define FALSE 0
 #define TRUE 1
@@ -47,13 +48,13 @@ int main() {
     Point pos;
     Stack *ways;
     BoolPos currentSituation;
-    int i, j;
+    int i;
 
     FILE *arquivo;
     arquivo = fopen("labirinto.txt", "r");
 
     if(arquivo == NULL) {
-        printf("Erro ao carregar o labirinto, arquivo não pode ser aberto.");
+        printf("Erro ao carregar o labirinto, arquivo nÃ£o pode ser aberto.");
         return 0;
     }
 
@@ -68,7 +69,7 @@ int main() {
     }
 
     if (!searchEntry(lin, col, maze, &pos)) {
-        printf("\nNão há entrada para esse labirinto, impossível continuar");
+        printf("\nNÃ£o hÃ¡ entrada para esse labirinto, impossÃ­vel continuar");
         return 0;
     }
 
@@ -86,13 +87,14 @@ int main() {
 
         if(currentSituation.left == 0 && currentSituation.bottom == 0 && currentSituation.right == 0 && currentSituation.top == 0) {
             if (!pop(ways, &pos)) {
+                printf("\nEntrada encontrada nÃ£o leva para uma saÃ­da!\n");
 
                 if(searchEntry(lin, col, maze, &pos)) {
-                    printf("\nEntrada encontrada não leva para uma saída!\nTentando nova entrada\n");
+                    printf("Nova entrada encontrada! Resolvendo...\n");
                     push(ways, pos);
                 }
                 else {
-                    printf("\n\nNão foi possível encontrar o caminhos a(s) entrada(s) encontrada(s) não levam à uma saída!\n");
+                    printf("\n\nNÃ£o foi possÃ­vel encontrar o caminhos a(s) entrada(s) encontrada(s) nÃ£o levam Ã  uma saÃ­da!\n");
                     break;
                 }
             }
@@ -101,10 +103,10 @@ int main() {
         }
     }
 
-    printf("\n\nLabirinto descoberto com sucesso!\nO caminho é:\n\n");
+    printf("\n\nLabirinto descoberto com sucesso!\nO caminho Ã©:\n\n");
 
     while(pop(ways, &pos) == TRUE) {
-        printf("%iº passo: %i x %i\n", ways->topo +1, pos.x, pos.y);
+        printf("%iÂº passo: %i x %i\n", ways->topo +1, pos.x, pos.y);
     }
 
     deinitStack(ways);
@@ -195,22 +197,22 @@ void checkPositions(BoolPos *s, Point *c, int lin, int col, char maze[][col]){
     s->right = 0;
     s ->top = 0;
 
-    if((c->y + 1 <= lin) && (maze[c->x][c->y+1] == MAZE_WAY || maze[c->x][c->y+1] == MAZE_OUT )) {
+    if((c->y + 1 <= lin) && ((maze[c->x][c->y+1] == MAZE_WAY || maze[c->x][c->y+1] == MAZE_OUT ))) {
         s->left = 1;
         c->y += 1;
         return;
     }
-    if((c->x + 1 <= col) && (maze[c->x +1][c->y] == MAZE_WAY|| maze[c->x+1][c->y] == MAZE_OUT)) {
+    if((c->x + 1 <= col) && ((maze[c->x +1][c->y] == MAZE_WAY|| maze[c->x+1][c->y] == MAZE_OUT))) {
         s->bottom = 1;
         c->x += 1;
         return;
     }
-    if((c->y - 1 >= 0) && (maze[c->x][c->y-1] == MAZE_WAY || maze[c->x][c->y-1] == MAZE_OUT)) {
+    if((c->y - 1 >= 0) && ((maze[c->x][c->y-1] == MAZE_WAY || maze[c->x][c->y-1] == MAZE_OUT))) {
         s->right = 1;
         c->y -= 1;
         return;
     }
-    if((c->x -1 >= 0) && (maze[c->x-1][c->y] == MAZE_WAY) || maze[c->x-1][c->y] == MAZE_OUT) {
+    if((c->x -1 >= 0) && ((maze[c->x-1][c->y] == MAZE_WAY) || maze[c->x-1][c->y] == MAZE_OUT)) {
         s->top = 1;
         c->x -= 1;
     }
